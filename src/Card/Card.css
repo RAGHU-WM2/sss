@@ -1,0 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+
+#Card {
+  z-index: 999;
+  border-radius: 16px;
+  height: max-content;
+  width: 10cm;
+  background-color: rgb(255, 255, 255);
+  position: absolute;
+  left: 2cm;
+  top: 2cm;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+#Card::-webkit-scrollbar {
+  display: none;
+}
+
+#locationsearch {
+  display: flex;
+  justify-content: center;
+}
+
+#search_input_container {
+  display: flex;
+  justify-content: center;
+}
+
+#toggle_list {
+  position: absolute;
+  right: 1cm;
+  top: 27px;
+}
