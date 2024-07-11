@@ -3,7 +3,7 @@ import "./Locationcard.css";
 import Toilet from '../Assets/toilet_16750317.png';
 import Closeicon from '../Assets/close-circle-svgrepo-com.svg';
 import Fullscreenicon from '../Assets/fullscreen-r8if0idY-r8if0idY.png';
-
+import DiretionCard from './DirectionCard'
 interface CardProps {
   selectedLocation: any; 
   mapView: any; 
@@ -55,8 +55,9 @@ export const Locationcard: React.FC<CardProps> = ({ selectedLocation, mapView, o
           <h6 id="amentityid">{selectedLocation.amenity}</h6>
         </div>
         <div className="directionbtn">
-          <button>Directions</button>
+          <button >Directions</button>
         </div>
+        <DiretionCard/>
       </div>
     </div>
   );

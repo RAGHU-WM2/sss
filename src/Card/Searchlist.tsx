@@ -86,7 +86,7 @@ const Searchlist = () => {
           <img src={Fireicon} alt="" width={13} height={13} />
         </div>
       </div>
-      {selectedLocation && <Searchlocation location={selectedLocation} />}
+      {/* {selectedLocation && <Searchlocation location={selectedLocation} />} */}
     </div>
   );
 };

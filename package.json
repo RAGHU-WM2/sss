@@ -44,6 +44,7 @@
     ]
   },
   "devDependencies": {
-    "@types/aos": "^3.0.7"
+    "@types/aos": "^3.0.7",
+    "@types/react-router-dom": "^5.3.3"
   }
 }

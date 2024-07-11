@@ -5,6 +5,7 @@ import TopLocationsCard from "./Toplocationcard";
 import SearchList from './Searchlist'
 import "./Card.css";
 import Listicon from "../Assets/list-cIcY5BTW.png";
+import Backicon from "../Assets/back-svgrepo-com.svg";
 
 const Card = () => {
   const navigate = useNavigate();
@@ -21,13 +22,27 @@ const Card = () => {
   };
 
   const handleSearchInputClick = () => {
-    setShowSearchList(true); // Always show SearchList when input is clicked
-    navigate("/searchlist"); // Navigate to /searchlist route
+    // Navigate to the search route and show the SearchList component
+    navigate("/search");
+    setShowSearchList(true);
+  };
+
+  const handleBackIconClick = () => {
+    // Navigate back and hide the SearchList component
+    navigate("/");
+    setShowSearchList(false);
   };
 
   return (
     <div id="Card">
       <div className="search_input_container">
+        <img
+          src={Backicon}
+          alt=""
+          id="backicon"
+          width={23}
+          onClick={handleBackIconClick} // Updated click handler
+        />
         <input
           type="text"
           id="locationsearch"
@@ -45,7 +60,7 @@ const Card = () => {
       <Routes>
         <Route path="/" element={<TopLocationsCard />} />
         <Route path="/categorycard" element={<Categorycard />} />
-        <Route path="/searchlist" element={<SearchList />} />
+        {showSearchList && <Route path="/search" element={<SearchList />} />} {/* Conditionally render SearchList */}
         {/* Add other routes as needed */}
       </Routes>
     </div>

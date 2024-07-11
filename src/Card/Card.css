@@ -17,7 +17,11 @@
 #Card::-webkit-scrollbar {
   display: none;
 }
-
+#backicon{
+  position: absolute;
+  left: 1cm;
+  top: 0.8cm;
+}
 #locationsearch {
   display: flex;
   justify-content: center;

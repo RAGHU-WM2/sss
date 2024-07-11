@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useCallback } from "react";
+import React, { useMemo, useState, useCallback, useEffect } from "react";
 import {
   TGetVenueOptions,
   E_SDK_EVENT,
@@ -8,8 +8,9 @@ import "@mappedin/mappedin-js/lib/mappedin.css";
 import useMapView from "./useMapView";
 import useVenue from "./useVenue";
 import Card from "./Card/Card";
-import { Locationcard } from "./Card/Locationcard"; // Import Locationcard component
-
+import { Locationcard } from "./Card/Locationcard";
+import './App.css'
+import DirectionCard from "./Card/DirectionCard";
 export default function App() {
   const options = useMemo<TGetVenueOptions>(
     () => ({
@@ -22,19 +23,22 @@ export default function App() {
 
   const venue = useVenue(options);
   const { elementRef, mapView } = useMapView(venue);
-  const [selectedLocation, setSelectedLocation] = useState<any>(null); // State to store selected location
+  const [selectedLocation, setSelectedLocation] = useState<any>(null);
+console.log("venue",venue?.venue.topLocations);
 
-  // Function to handle closing the Locationcard
+  // State for map groups and levels
+  const [mapGroups, setMapGroups] = useState<any[]>([]);
+  const [maps, setMaps] = useState<any[]>([]);
+
   const handleClose = useCallback(() => {
-    setSelectedLocation(null); // Reset selectedLocation state to close the Locationcard
+    setSelectedLocation(null);
   }, []);
 
-  useMemo(() => {
+  useEffect(() => {
     if (mapView && venue) {
       mapView.addInteractivePolygonsForAllLocations();
       mapView.on(E_SDK_EVENT.CLICK, ({ polygons }) => {
-        mapView.clearAllPolygonColors(); // Clear all polygon colors first
-
+        mapView.clearAllPolygonColors();
         if (polygons.length > 0) {
           mapView.setPolygonColor(polygons[0], "grey");
 
@@ -42,10 +46,10 @@ export default function App() {
             location.polygons.some((polygon) => polygon.id === polygons[0].id)
           );
           if (parentObject) {
-            setSelectedLocation(parentObject); // Set selected location in state
+            setSelectedLocation(parentObject);
           }
         } else {
-          setSelectedLocation(null); // Clear selected location when no polygons are clicked
+          setSelectedLocation(null);
           mapView.clearAllPolygonColors();
         }
       });
@@ -78,7 +82,6 @@ export default function App() {
         ({ tilt, rotation, zoom, position }) => {}
       );
 
-      // Example icons and colors setup
       const deskIcon = ``;
       const washroomIcon = ``;
       const meetingRoomIcon = ``;
@@ -122,14 +125,60 @@ export default function App() {
           });
         });
       });
+
+      // Populate map groups and levels
+      setMapGroups(venue.mapGroups);
+
+      const initialMaps = venue.mapGroups[0].maps.sort((a, b) => b.elevation - a.elevation);
+      setMaps(initialMaps);
     }
   }, [mapView, venue]);
 
+  const handleMapGroupChange = useCallback(
+    (event: React.ChangeEvent<HTMLSelectElement>) => {
+      if (venue) {
+        const mapGroup = venue.mapGroups.find((mg) => mg.id === event.target.value);
+        if (mapGroup) {
+          const sortedMaps = mapGroup.maps.sort((a, b) => b.elevation - a.elevation);
+          setMaps(sortedMaps);
+          if (mapView) {
+            mapView.setMap(sortedMaps[sortedMaps.length - 1]);
+          }
+        }
+      }
+    },
+    [venue, mapView]
+  );
+
+  const handleMapLevelChange = useCallback(
+    (event: React.ChangeEvent<HTMLSelectElement>) => {
+      if (mapView) {
+        mapView.setMap(event.target.value);
+      }
+    },
+    [mapView]
+  );
+
   return (
     <div id="app" ref={elementRef}>
-    {!selectedLocation && <Card />}
-    {/* Pass onClose function to Locationcard */}
+      <div id="selectorDiv">
+        <select onChange={handleMapGroupChange}>
+          {mapGroups.map((mg) => (
+            <option key={mg.id} value={mg.id}>{mg.name}</option>
+          ))}
+        </select>
+        <select onChange={handleMapLevelChange} id="Levelselctor">
+          {maps.map((map) => (
+            <option key={map.id} value={map.id}>{map.name}</option>
+          ))}
+        </select>
+      </div>
+      {!selectedLocation && <Card />}
+      
       <Locationcard selectedLocation={selectedLocation} mapView={mapView} onClose={handleClose} />
+      
     </div>
   );
+  
+  
 }

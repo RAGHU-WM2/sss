@@ -1,0 +1,7 @@
+#Directioncard{
+    height: 5cm ;
+    width: 7cm;
+    background-color: red;
+    position: absolute;
+    z-index: 999;
+}

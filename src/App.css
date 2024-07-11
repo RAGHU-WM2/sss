@@ -1,0 +1,42 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+
+
+#selectorDiv {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 100;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  #selectorDiv select:first-child {
+    display: none;
+  }
+  
+  #Levelselctor {
+    padding: 7px 43px;
+    color: #312d2d;
+    font-size: 14px;
+    font-weight: 500;
+    appearance: none;
+    background-image: url('./Assets/down-arrow-5-svgrepo-com (2).svg');
+    background-color: #fff;
+    font-family: "Lato";
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    position: relative;
+    border: none;
+    outline: none;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  #Levelselctor:hover {
+    background-color: #f0f0f0;
+  }
+  

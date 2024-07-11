@@ -75,6 +75,9 @@ body {
 }
 #locationsearch::placeholder {
   color: rgb(162, 162, 162) !important;
+font-size: 17px;
+text-align: center; /* Adjust as needed */
+margin-right: 80px; 
 }
 
 #locationsearch:placeholder-shown {
@@ -130,6 +133,7 @@ body {
 
 .location_details::placeholder {
   color: rgb(108, 108, 108);
+  margin-left: 3cm;
 }
 
 #close_icon {
